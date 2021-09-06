@@ -47,8 +47,9 @@
         <?php if($pizza):?>
             
             <h4><?php echo htmlspecialchars($pizza['title']); ?></h4>
-            <p>Created by: <?php echo htmlspecialchars($pizza['email']); ?></p>
-            <p> <?php echo date($pizza['created_at']);?></p>
+            <p>Ordered by: <?php echo htmlspecialchars($pizza['name']); ?></p>
+            <p>Email: <?php echo htmlspecialchars($pizza['email']); ?></p>
+            <p>Ordered at: <?php echo date($pizza['created_at']);?></p>
             <h5>Ingredients:</h5>
             <p><?php echo htmlspecialchars($pizza['ingredients']);?></p>
             

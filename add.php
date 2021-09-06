@@ -3,10 +3,15 @@
     //db connect
     include('config/db_connect.php');
 
-    $title = $email = $ingredients = '';
-    $errors = array('email'=>'', 'title'=>'', 'ingredients'=>'');
+    $title = $name =  $email = $ingredients = '';
+    $errors = array('name'=>'', 'email'=>'', 'title'=>'', 'ingredients'=>'');
 
     if(isset($_POST['submit'])) {
+
+        //check name
+        if(empty($_POST['name'])) {
+            $errors['name'] = 'A name is required!';
+        }
 
         //check email
         if(empty($_POST['email'])) {
@@ -15,8 +20,6 @@
             $email = $_POST['email'];
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors['email'] = 'Email must be a valid email address!';
-            } else{
-                //echo htmlspecialchars($_POST['email']);
             }
         }
 
@@ -44,13 +47,14 @@
 
     if(array_filter($errors)) {
         //echo 'errors in the form';
-    } else if(!array_filter($errors) && !empty($_POST['ingredients']) && !empty($_POST['title']) && !empty($_POST['email'])) {
+    } else if(!array_filter($errors) && !empty($_POST['ingredients']) && !empty($_POST['title']) && !empty($_POST['email']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($conn, $_POST['name']);
         $email = mysqli_real_escape_string($conn, $_POST['email']);
         $title = mysqli_real_escape_string($conn, $_POST['title']);
         $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
 
         //create sql
-        $sql = "INSERT INTO pizzas(title, email, ingredients) VALUES('$title', '$email', '$ingredients')";
+        $sql = "INSERT INTO pizzas(title, name, email, ingredients) VALUES('$title', '$name', '$email', '$ingredients')";
 
         //save to db and check
         if(mysqli_query($conn, $sql) && $email != '') {
@@ -70,6 +74,9 @@
     <section class="container grey-text">
         <h4 class="center">Add a Pizza</h4>
         <form action="add.php" method="POST" class="white">
+            <label>Your Name:</label>
+            <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>">
+            <div class="red-text"><?php echo $errors['name']; ?></div>
             <label>Your Email:</label>
             <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>">
             <div class="red-text"><?php echo $errors['email']; ?></div>
