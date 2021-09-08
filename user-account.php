@@ -18,7 +18,7 @@
             }
         }
 
-        //check title
+        //check password
         if(empty($_POST['password'])) {
             $errors['password'] = 'A password is required!';
         } else {
@@ -32,7 +32,7 @@
             }
         }
 
-        //check ingredients
+        //check password confirmation
         if(empty($_POST['confirmPassword'])) {
             $errors['confirmPassword'] = 'Please confirm your password!';
         } else {
@@ -53,12 +53,12 @@
         //$ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
 
         //create sql
-        //$sql = "INSERT INTO pizzas(title, email, ingredients) VALUES('$title', '$email', '$ingredients')";
+        $sql = "INSERT INTO useraccount(email, password) VALUES('$email', '$password')";
 
         //save to db and check
-        //if(mysqli_query($conn, $sql) && $email != '') {
-          //  header('Location: index.php');
-        //} //else {
+        if(mysqli_query($conn, $sql) && $email != '') {
+            header('Location: index.php');
+        } //else {
         //     echo 'query error: ' . mysqli_error($conn);
         // }
     }
@@ -71,7 +71,7 @@
     <?php include('templates/header.php'); ?>
     
     <section class="container grey-text">
-        <h4 class="center">Add a Pizza</h4>
+        <h4 class="center">Create Account</h4>
         <form action="user-account.php" method="POST" class="white">
             <label>Your Email:</label>
             <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>">
