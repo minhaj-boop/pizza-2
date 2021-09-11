@@ -58,7 +58,7 @@
 
         //save to db and check
         if(mysqli_query($conn, $sql) && $email != '') {
-            header('Location: index.php');
+            header("Location: user.php?email=".$_POST['email']);
         } //else {
         //     echo 'query error: ' . mysqli_error($conn);
         // }

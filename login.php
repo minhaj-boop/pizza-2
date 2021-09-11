@@ -29,7 +29,7 @@
             if(empty($qValues)){
                 $errors['password'] = 'Incorrect email or password!';
             } else {
-                header('Location: index.php');
+                header("Location: user.php?email=".$_POST['email']);
             }
 
         }

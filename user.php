@@ -2,9 +2,11 @@
 
     //db connection
     include('config/db_connect.php');
-
+    $email = $_GET['email'];
     //write query for all pizzas
-    $sql = 'SELECT title, ingredients, id FROM pizzas ORDER BY created_at';
+    $sql = "SELECT title, ingredients, id FROM pizzas 
+                WHERE email = '$email'
+                    ORDER BY created_at";
     
     //make quaries and get results
     $result = mysqli_query($conn, $sql);
